@@ -259,3 +259,8 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+
+man-power/man_power/static/node_modules/
+man-power/man_power/static/dist/
+env/
+obj/

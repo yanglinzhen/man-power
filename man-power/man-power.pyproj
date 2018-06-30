@@ -40,8 +40,6 @@
     <Folder Include="man_power\templates\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="man_power\static\webpack.bundle.js" />
-    <Content Include="man_power\templates\index.html" />
     <Content Include="requirements.txt" />
   </ItemGroup>
   <ItemGroup>
