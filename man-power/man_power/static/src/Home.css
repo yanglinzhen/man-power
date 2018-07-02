@@ -1,0 +1,36 @@
+.Home {
+    text-align: center;
+  }
+  
+.Home-header {
+background-color: #222;
+height: 10%;
+padding: 20px;
+color: white;
+}
+
+.Home-title {
+font-size: 1.5em;
+}
+
+.Home-intro {
+font-size: large;
+}
+
+.imgItem {
+list-style-type: none;
+width: 190px;
+height: 190px;
+margin: 2px;
+border: 1px solid #222;
+float: left;
+}
+
+.imgList {
+position: relative;
+width: 80%;
+height: auto;
+padding: 0px;
+margin-left: 10%;
+margin-right: 10%;
+}

@@ -37,9 +37,20 @@
   <ItemGroup>
     <Folder Include="man_power\" />
     <Folder Include="man_power\static\" />
+    <Folder Include="man_power\static\src\" />
     <Folder Include="man_power\templates\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="man_power\static\package-lock.json" />
+    <Content Include="man_power\static\package.json" />
+    <Content Include="man_power\static\src\App.css" />
+    <Content Include="man_power\static\src\App.jsx" />
+    <Content Include="man_power\static\src\App.test.js" />
+    <Content Include="man_power\static\src\AxiosConfig.js" />
+    <Content Include="man_power\static\src\index.css" />
+    <Content Include="man_power\static\src\index.html" />
+    <Content Include="man_power\static\src\index.jsx" />
+    <Content Include="man_power\static\webpack.config.js" />
     <Content Include="requirements.txt" />
   </ItemGroup>
   <ItemGroup>
