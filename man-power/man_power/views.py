@@ -46,7 +46,7 @@ def addOTRecord():
         if year == None or month == None:
             return Response('invalid arguments', status=403)
         startDate = datetime(year, month, 1, 0, 0)
-        endDate = datetime(year, month, getLastDayInMonth(year, month), 0, 0)
+        endDate = datetime(year, month, getLastDayInMonth(year, month), 23, 59)
         print(str(startDate) + '\r\n' + str(endDate))
 
         raw_data = db_session.query(OTRecord.name, OTRecord.department, OTRecord.ot_date, OTRecord.ot_duration, OTRecord.project, OTRecord.ot_reason)\
