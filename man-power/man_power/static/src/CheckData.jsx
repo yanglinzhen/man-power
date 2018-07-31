@@ -5,7 +5,8 @@ import {
     UncontrolledDropdown,
     DropdownToggle,
     DropdownMenu,
-    DropdownItem
+    DropdownItem,
+    Table
   } from 'reactstrap';
 
 class CheckData extends Component {
@@ -14,20 +15,23 @@ class CheckData extends Component {
         this.state = {
             year: new Date().getFullYear(),
             month: new Date().getMonth() + 1,
+            // month: 5,
             data: [],
+            columns: ["姓名", "部门", "日期", "时数", "所属项目", "工作内容"]
         };
     }
 
     componentDidMount() {
         axios.get(
-            'ot_record?year=' + this.state.year + '&month=' + this.state.month + '&excel=false'
+            'ot_record?year=' + this.state.year + '&month=' + this.state.month
           ).then((response) => {
-            console.log(response);
-            // if(response.status === 200) {
-            //   console.log(response);
-            // } else {
-            //   console.log(response);
-            // }
+            if(response.status === 200) {
+                this.setState({
+                    data: response.data.data
+                });
+            } else {
+
+            }
           })
           .catch((error) => {
             console.log(error);
@@ -41,7 +45,7 @@ class CheckData extends Component {
                   <DropdownToggle nav caret>
                     {this.state.year + '-' + this.state.month}
                   </DropdownToggle>
-                  <DropdownMenu right>
+                  {/* <DropdownMenu right>
                     <DropdownItem>
                       Option 1
                     </DropdownItem>
@@ -52,8 +56,33 @@ class CheckData extends Component {
                     <DropdownItem>
                       Reset
                     </DropdownItem>
-                  </DropdownMenu>
+                  </DropdownMenu> */}
                 </UncontrolledDropdown>
+
+                <Table>
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        {this.state.columns.map((item) => 
+                            <th>{item}</th>
+                        )}
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {this.state.data.map((rowItem, index) =>
+                            <tr>
+                                <th scope="row">{index}</th>
+                                {console.log(rowItem[2])}
+                                <td>{rowItem[0]}</td>
+                                <td>{rowItem[1]}</td>
+                                <td>{rowItem[2]}</td>
+                                <td>{rowItem[3]}</td>
+                                <td>{rowItem[4]}</td>
+                                <td>{rowItem[5]}</td>
+                            </tr>
+                        )}
+                    </tbody>
+                </Table>
             </div>
         );
     }

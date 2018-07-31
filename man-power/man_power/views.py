@@ -51,12 +51,12 @@ def addOTRecord():
 
         raw_data = db_session.query(OTRecord.name, OTRecord.department, OTRecord.ot_date, OTRecord.ot_duration, OTRecord.project, OTRecord.ot_reason)\
             .filter(startDate < OTRecord.ot_date, OTRecord.ot_date < endDate).all()
-        print(raw_data)
     
         ot_record_data = DataFrame(raw_data, columns=['姓名', '部门', '日期', '时数', '所属项目', '工作内容'])
+        ot_record_data['日期'] = ot_record_data['日期'].apply(lambda x : str(x))
         print(ot_record_data)
         if not return_excel:
-            return ot_record_data.to_json()
+            return ot_record_data.to_json(orient='split')
         file_path = os.path.join(CWD, '工时统计{0}-{1}.xlsx'.format(year, month))
         writer = pd.ExcelWriter(file_path)
         ot_record_data.to_excel(writer,'Sheet1')

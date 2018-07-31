@@ -43,9 +43,9 @@ class App extends Component {
                 <NavItem>
                   <NavLink><Link to="/checkData">查看记录</Link></NavLink>
                 </NavItem>
-                <NavItem>
+                {/* <NavItem>
                   <NavLink><Link to="/demo">Demo</Link></NavLink>
-                </NavItem>
+                </NavItem> */}
               </Nav>
             </Collapse>
           </Navbar>
