@@ -49,10 +49,10 @@ def addOTRecord():
         endDate = datetime(year, month, getLastDayInMonth(year, month), 23, 59)
         print(str(startDate) + '\r\n' + str(endDate))
 
-        raw_data = db_session.query(OTRecord.name, OTRecord.department, OTRecord.ot_date, OTRecord.ot_duration, OTRecord.project, OTRecord.ot_reason)\
+        raw_data = db_session.query(OTRecord.name, OTRecord.department, OTRecord.ot_date, OTRecord.ot_duration, OTRecord.project, OTRecord.ot_reason, OTRecord.id)\
             .filter(startDate < OTRecord.ot_date, OTRecord.ot_date < endDate).all()
     
-        ot_record_data = DataFrame(raw_data, columns=['姓名', '部门', '日期', '时数', '所属项目', '工作内容'])
+        ot_record_data = DataFrame(raw_data, columns=['姓名', '部门', '日期', '时数', '所属项目', '工作内容', 'id'])
         ot_record_data['日期'] = ot_record_data['日期'].apply(lambda x : str(x))
         print(ot_record_data)
         if not return_excel:
@@ -62,6 +62,18 @@ def addOTRecord():
         ot_record_data.to_excel(writer,'Sheet1')
         writer.save()
         return send_file(file_path, as_attachment=True, attachment_filename=file_path)
+
+@app.route('/delete_record', methods=['POST'])
+@cross_origin()
+def deleteRecord():
+    record_id = int(request.data)
+    record = OTRecord.query.filter_by(id=record_id).first()
+    if not record is None:
+        db_session.delete(record)
+        db_session.commit()
+        return Response('data deleted successfully', status=200)
+    return Response('data deleted failed', status=403)
+
 
 @app.teardown_appcontext
 def shutdown_session(exception=None):

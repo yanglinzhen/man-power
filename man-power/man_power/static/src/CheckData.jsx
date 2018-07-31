@@ -6,7 +6,8 @@ import {
     DropdownToggle,
     DropdownMenu,
     DropdownItem,
-    Table
+    Table,
+    Button
   } from 'reactstrap';
 
 class CheckData extends Component {
@@ -15,15 +16,34 @@ class CheckData extends Component {
         this.state = {
             year: new Date().getFullYear(),
             month: new Date().getMonth() + 1,
-            // month: 5,
             data: [],
             columns: ["姓名", "部门", "日期", "时数", "所属项目", "工作内容"]
         };
+        this.onDeleteButtonClick = this.onDeleteButtonClick.bind(this);
+    }
+
+    onDeleteButtonClick(id) {
+        axios.post(
+            'delete_record',
+            id,
+        ).then((response) => {
+            if(response.status === 200) {
+                this.loadData(this.state.year, this.state.month);
+            } else {
+            }
+        })
+        .catch((error) => {
+            console.log(error)
+        });
     }
 
     componentDidMount() {
+        this.loadData(this.state.year, this.state.month);
+    }
+
+    loadData(year, month) {
         axios.get(
-            'ot_record?year=' + this.state.year + '&month=' + this.state.month
+            'ot_record?year=' + year + '&month=' + month
           ).then((response) => {
             if(response.status === 200) {
                 this.setState({
@@ -72,13 +92,13 @@ class CheckData extends Component {
                         {this.state.data.map((rowItem, index) =>
                             <tr>
                                 <th scope="row">{index}</th>
-                                {console.log(rowItem[2])}
                                 <td>{rowItem[0]}</td>
                                 <td>{rowItem[1]}</td>
                                 <td>{rowItem[2]}</td>
                                 <td>{rowItem[3]}</td>
                                 <td>{rowItem[4]}</td>
                                 <td>{rowItem[5]}</td>
+                                <td><Button color="secondary" onClick={() => this.onDeleteButtonClick(rowItem[6])} >删除记录</Button></td>
                             </tr>
                         )}
                     </tbody>
