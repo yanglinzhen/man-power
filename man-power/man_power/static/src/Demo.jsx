@@ -85,8 +85,7 @@ constructor(props) {
   }
 
   drawNode(context, nodeItem, point) {
-    context.fillText(item, space.w, space.h)
-    this.state.
+    context.fillText(item, space.w, space.h);
   }
 
   render() {

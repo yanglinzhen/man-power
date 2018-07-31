@@ -3,22 +3,9 @@ import { Button,
   Form,
   FormGroup,
   Label,
-  Input,
-  FormText,
-  Nav,
-  Collapse,
-  Navbar,
-  NavbarToggler,
-  NavbarBrand,
-  NavItem,
-  NavLink,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem
+  Input
 } from 'reactstrap';
 import axios from './AxiosConfig.js'
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 class Home extends Component {
   constructor(props) {

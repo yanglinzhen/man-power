@@ -41,6 +41,8 @@ def addOTRecord():
     elif request.method == 'GET':
         year = int(request.args.get('year'))
         month = int(request.args.get('month'))
+        return_excel = bool(request.args.get('excel'))
+
         if year == None or month == None:
             return Response('invalid arguments', status=403)
         startDate = datetime(year, month, 1, 0, 0)
@@ -53,6 +55,8 @@ def addOTRecord():
     
         ot_record_data = DataFrame(raw_data, columns=['姓名', '部门', '日期', '时数', '所属项目', '工作内容'])
         print(ot_record_data)
+        if not return_excel:
+            return ot_record_data.to_json()
         file_path = os.path.join(CWD, '工时统计{0}-{1}.xlsx'.format(year, month))
         writer = pd.ExcelWriter(file_path)
         ot_record_data.to_excel(writer,'Sheet1')
