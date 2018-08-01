@@ -37,10 +37,13 @@
   <ItemGroup>
     <Folder Include="man_power\" />
     <Folder Include="man_power\static\" />
+    <Folder Include="man_power\static\dist\" />
     <Folder Include="man_power\static\src\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="FolderProfile.pubxml" />
+    <Content Include="man_power\static\dist\index.html" />
+    <Content Include="man_power\static\dist\webpack.bundle.js" />
     <Content Include="man_power\static\package-lock.json" />
     <Content Include="man_power\static\package.json" />
     <Content Include="man_power\static\src\App.jsx" />
