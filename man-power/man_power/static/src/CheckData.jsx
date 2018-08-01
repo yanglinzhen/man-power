@@ -17,9 +17,44 @@ class CheckData extends Component {
             year: new Date().getFullYear(),
             month: new Date().getMonth() + 1,
             data: [],
-            columns: ["姓名", "部门", "日期", "时数", "所属项目", "工作内容"]
+            columns: ["姓名", "部门", "日期", "时数", "所属项目", "工作内容"],
+            yearMonths: []
         };
         this.onDeleteButtonClick = this.onDeleteButtonClick.bind(this);
+        this.onYearMonthSelected = this.onYearMonthSelected.bind(this);
+        this.setYearMonth = this.setYearMonth.bind(this);
+    }
+
+    getMonths() {
+        let yearAndMonth = {'year': this.state.year, 'month': this.state.month}
+        let yearAndMonths = [yearAndMonth]
+        for (let index = 0; index < 2; index++) {
+            yearAndMonth = this.getNextMonth(yearAndMonth.year, yearAndMonth.month)
+            yearAndMonths[yearAndMonths.length] = yearAndMonth
+        }
+
+        yearAndMonth = {'year': this.state.year, 'month': this.state.month}
+        for (let index = 0; index < 2; index++) {
+            yearAndMonth = this.getPrevMonth(yearAndMonth.year, yearAndMonth.month)
+            yearAndMonths.unshift(yearAndMonth)
+        }
+        return yearAndMonths
+    }
+
+    getNextMonth(year, month) {
+        if (month == 12) {
+            return {'year': year + 1, 'month': 1}
+        } else {
+            return {'year': year, 'month': month + 1}
+        }
+    }
+
+    getPrevMonth(year, month) {
+        if (month == 1) {
+            return {'year': year - 1, 'month': 12}
+        } else {
+            return {'year': year, 'month': month - 1}
+        }
     }
 
     onDeleteButtonClick(id) {
@@ -35,6 +70,21 @@ class CheckData extends Component {
         .catch((error) => {
             console.log(error)
         });
+    }
+
+    setYearMonth(index) {
+        this.setState({
+            year: this.state.yearMonths[index].year,
+            month: this.state.yearMonths[index].month
+        })
+
+        this.loadData(this.state.yearMonths[index].year, this.state.yearMonths[index].month);
+    }
+
+    onYearMonthSelected() {
+        this.setState({
+            yearMonths: this.getMonths()
+        })
     }
 
     componentDidMount() {
@@ -62,21 +112,16 @@ class CheckData extends Component {
         return (
             <div className="CheckData">
                 <UncontrolledDropdown nav inNavbar>
-                  <DropdownToggle nav caret>
+                  <DropdownToggle nav caret onClick={() => this.onYearMonthSelected()}>
                     {this.state.year + '-' + this.state.month}
                   </DropdownToggle>
-                  {/* <DropdownMenu right>
-                    <DropdownItem>
-                      Option 1
-                    </DropdownItem>
-                    <DropdownItem>
-                      Option 2
-                    </DropdownItem>
-                    <DropdownItem divider />
-                    <DropdownItem>
-                      Reset
-                    </DropdownItem>
-                  </DropdownMenu> */}
+                  <DropdownMenu right>
+                    {this.state.yearMonths.map((item, index) =>
+                        <DropdownItem onClick={() => this.setYearMonth(index)}>
+                            {item.year + '-' + item.month}
+                        </DropdownItem>
+                    )}
+                  </DropdownMenu>
                 </UncontrolledDropdown>
 
                 <Table>
