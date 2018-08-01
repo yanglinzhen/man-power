@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@192.168.3.206:yanglinzhen/ovettime-statistics.git"
+    "url": "git@192.168.3.206:yanglinzhen/man-power.git"
   },
   "dependencies": {
     "axios": "^0.18.0",
