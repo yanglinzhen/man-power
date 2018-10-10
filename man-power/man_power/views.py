@@ -50,7 +50,7 @@ def addOTRecord():
         print(str(startDate) + '\r\n' + str(endDate))
 
         raw_data = db_session.query(OTRecord.name, OTRecord.department, OTRecord.ot_date, OTRecord.ot_duration, OTRecord.project, OTRecord.ot_reason, OTRecord.id)\
-            .filter(startDate < OTRecord.ot_date, OTRecord.ot_date < endDate).all()
+            .filter(startDate <= OTRecord.ot_date, OTRecord.ot_date < endDate).all()
     
         ot_record_data = DataFrame(raw_data, columns=['姓名', '部门', '日期', '时数', '所属项目', '工作内容', 'id'])
         ot_record_data['日期'] = ot_record_data['日期'].apply(lambda x : str(x))

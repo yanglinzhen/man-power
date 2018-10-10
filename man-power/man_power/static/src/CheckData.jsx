@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from './AxiosConfig.js'
 import './CheckData.css'
+import config from './GlobalConfig'
 import {
     UncontrolledDropdown,
     DropdownToggle,
@@ -111,18 +112,22 @@ class CheckData extends Component {
     render() {
         return (
             <div className="CheckData">
-                <UncontrolledDropdown nav inNavbar>
-                  <DropdownToggle nav caret onClick={() => this.onYearMonthSelected()}>
-                    {this.state.year + '-' + this.state.month}
-                  </DropdownToggle>
-                  <DropdownMenu right>
-                    {this.state.yearMonths.map((item, index) =>
-                        <DropdownItem onClick={() => this.setYearMonth(index)}>
-                            {item.year + '-' + item.month}
-                        </DropdownItem>
-                    )}
-                  </DropdownMenu>
-                </UncontrolledDropdown>
+                <span>
+
+                    <UncontrolledDropdown nav inNavbar>
+                    <DropdownToggle nav caret onClick={() => this.onYearMonthSelected()}>
+                        {this.state.year + '-' + this.state.month}
+                    </DropdownToggle>
+                    <DropdownMenu right>
+                        {this.state.yearMonths.map((item, index) =>
+                            <DropdownItem onClick={() => this.setYearMonth(index)}>
+                                {item.year + '-' + item.month}
+                            </DropdownItem>
+                        )}
+                    </DropdownMenu>
+                    </UncontrolledDropdown>
+                    <a href={config.url + "/ot_record?year=" + this.state.year + "&month=" + this.state.month + "&excel=true"}>下载文件</a>
+                </span>
 
                 <Table>
                     <thead>
