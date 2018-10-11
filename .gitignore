@@ -261,6 +261,7 @@ __pycache__/
 *.pyc
 
 man-power/man_power/static/node_modules/
+man-power/man_power/static/package-lock.json
 env/
 obj/
-/package-lock.json
+
